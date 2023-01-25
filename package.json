@@ -1,32 +1,45 @@
 {
     "name": "asset-transfer-private-data",
     "version": "1.0.0",
-    "description": "Asset transfer private data application implemented in typeScript using fabric-gateway",
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "description": "asset-transfer-private-data application implemented in JavaScript",
     "engines": {
-        "node": ">=14"
+        "node": ">=12",
+        "npm": ">=5"
     },
     "scripts": {
-        "build": "tsc",
-        "build:watch": "tsc -w",
-        "lint": "eslint . --ext .ts",
-        "prepare": "npm run build",
+        "lint": "eslint .",
         "pretest": "npm run lint",
-        "start": "node dist/app.js"
+        "test": "nyc mocha --recursive"
     },
     "engineStrict": true,
     "author": "Hyperledger",
     "license": "Apache-2.0",
     "dependencies": {
-        "@grpc/grpc-js": "^1.7.2",
-        "@hyperledger/fabric-gateway": "^1.1.1"
+        "fabric-ca-client": "^2.2.4",
+        "fabric-network": "^2.2.4"
     },
     "devDependencies": {
-        "@tsconfig/node14": "^1.0.1",
-        "@typescript-eslint/eslint-plugin": "^5.6.0",
-        "@typescript-eslint/parser": "^5.6.0",
-        "eslint": "^8.4.1",
-        "typescript": "~4.5.2"
+        "chai": "^4.2.0",
+        "eslint": "^5.9.0",
+        "mocha": "^10.2.0",
+        "nyc": "^14.1.1",
+        "sinon": "^7.1.1",
+        "sinon-chai": "^3.3.0"
+    },
+    "nyc": {
+        "exclude": [
+            "coverage/**",
+            "test/**"
+        ],
+        "reporter": [
+            "text-summary",
+            "html"
+        ],
+        "all": true,
+        "check-coverage": true,
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
     }
 }
