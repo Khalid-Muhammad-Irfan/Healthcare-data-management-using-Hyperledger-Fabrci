@@ -1,10 +1,33 @@
-# Asset Transfer Private Data Sample
+# Project
 
-This app uses fabric-samples/test-network based setup and the companion chaincode asset-transfer-private-data/chaincode-go/ with chaincode endorsement policy as "OR('Org1MSP.peer','Org2MSP.peer')"
+## Setup
 
-For this usecase illustration, we will use both Org1 & Org2 client identity from this same app
-In real world the Org1 & Org2 identity will be used in different apps to achieve asset transfer.
+Clone `fabric-samples` repository:
+`git clone https://github.com/hyperledger/fabric-samples`
 
-For more details refer:
-https://hyperledger-fabric.readthedocs.io/en/release-2.4/private_data_tutorial.html#pd-use-case
+Install the binaries for Fabric v2.4.7:
+`curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.4.7 1.5.5`
+
+## Deployment
+
+Bring up the network:
+
+``` shell
+cd fabric-samples/test-network && ./network.sh down
+./network.sh up createChannel -ca -s couchdb
+```
+
+Deploy the smart contract:
+
+``` shell
+./network.sh deployCC -ccn private -ccp ../asset-transfer-private-data/chaincode-javascript/ -ccl javascript -ccep "OR('Org1MSP.peer','Org2MSP.peer')" -cccg ../asset-transfer-private-data/chaincode-javascript/collections_config.json
+```
+
+Run the app:
+
+``` sh
+cd fabric-samples/asset-transfer-private-data/application-javascript
+npm i
+node app.js
+```
 
